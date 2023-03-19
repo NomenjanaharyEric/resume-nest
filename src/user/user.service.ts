@@ -3,12 +3,27 @@ import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import * as argon from "argon2";
 import { User, UserDocument } from "./schema/user.schema";
-import { CreateUserDto } from "./dto";
+import { CreateUserDto, UpdateUserDto } from "./dto";
 
 @Injectable()
 export class UserService {
 
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>){}
+
+    async findAll(): Promise<User[]>
+    {
+        return this.userModel.find().exec();
+    }
+
+    async findById(id: string): Promise<User>
+    {
+        try {
+            const user = await this.userModel.findById(id);
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
 
     async create(createUserDto: CreateUserDto): Promise<User>
     {
@@ -35,6 +50,26 @@ export class UserService {
             throw error;
         }
 
+    }
+
+    async update(id: string, updateUserDto: UpdateUserDto)
+    {
+        try {
+            const user = await this.userModel.findById(id);
+            const isPasswordMatches = await argon.verify(user.password, updateUserDto.password);
+
+            if(!isPasswordMatches){
+                throw new ForbiddenException('Password Invalid');
+            }
+
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, {
+                username: updateUserDto.username
+            });
+
+            return updatedUser;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async findOne(email: string): Promise<User>
