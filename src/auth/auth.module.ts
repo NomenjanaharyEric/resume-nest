@@ -12,7 +12,7 @@ import { JwtStrategy, LocalStrategy } from "./strategy";
         PassportModule,
         JwtModule.register({
             secret: "My_JWT_SECRET_IS_INCREDIBLE",
-            signOptions: { expiresIn: '60s'}
+            signOptions: { expiresIn: '60d'}
         })
     ],
     controllers: [AuthController],
