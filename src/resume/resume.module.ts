@@ -7,6 +7,7 @@ import { ResumeController } from './resume.controller';
 @Module({
     imports: [MongooseModule.forFeature([{ name: Resume.name, schema: ResumeSchema }])],
     providers: [ResumeService],
-    controllers: [ResumeController]
+    controllers: [ResumeController],
+    exports:[MongooseModule]
 })
 export class ResumeModule {}
