@@ -8,6 +8,7 @@ import { ExperienceModule } from './experience/experience.module';
 import { SkillModule } from './skill/skill.module';
 import { LanguageModule } from './language/language.module';
 import { InterestModule } from './interest/interest.module';
+import { EducationModule } from './education/education.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { InterestModule } from './interest/interest.module';
     SkillModule,
     LanguageModule,
     InterestModule,
+    EducationModule,
   ],
 })
 export class AppModule {}

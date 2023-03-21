@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
+import { Education } from "src/education/schema/education.schema";
 import { Experience } from "src/experience/schema/experience.schema";
 import { Interest } from "src/interest/schema/interest.schema";
 import { Language } from "src/language/schema/language.schema";
@@ -45,6 +46,9 @@ export class Resume {
 
     @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: "Interest"})
     interests: Interest[]
+
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: "Education"})
+    educations: Education[]
     
 }
 
