@@ -4,7 +4,15 @@ export class CreateEducationDto{
 
     @IsString()
     @IsNotEmpty()
-    title: string;
+    school: string;
+
+    @IsString()
+    @IsNotEmpty()
+    sector: string;
+
+    @IsString()
+    @IsNotEmpty()
+    degree: string;
 
     @IsString()
     @IsNotEmpty()

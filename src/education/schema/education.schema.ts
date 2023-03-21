@@ -7,7 +7,13 @@ export type EducationDocument = mongoose.HydratedDocument<Education>
 @Schema()
 export class Education{
     @Prop()
-    title: string;
+    school: string;
+    
+    @Prop()
+    sector: string;
+
+    @Prop()
+    degree: string;
 
     @Prop()
     location: string;

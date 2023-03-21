@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { exit } from 'process';
 import { Resume, ResumeDocument } from 'src/resume/schema/resume.schema';
 import { CreateEducationDto, UpdateEducationDto } from './dto';
 import { Education, EducationDocument } from './schema/education.schema';
@@ -37,10 +38,9 @@ export class EducationService {
 
             await this.resumeModel.findByIdAndUpdate(education.resume, {
                 $push: {
-                    educations: education
+                    educations: education.id
                 }
-            }, { new: true });
-            
+            }, { new: true });   
 
             return education;
         } catch (error) {
@@ -59,11 +59,11 @@ export class EducationService {
 
     async remove(educationId: string){
         try {
-            const education = await this.educationModel.findByIdAndDelete(educationId);
+            const education = await this.educationModel.findByIdAndDelete(educationId);            
 
             await this.resumeModel.findByIdAndUpdate(education.resume, {
                 $pull: {
-                    educations: education
+                    educations: education.id
                 }
             }, { new: true });
 

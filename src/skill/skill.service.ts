@@ -34,13 +34,12 @@ export class SkillService {
     {
         try {
             const skill = await this.skillModel.create(createSkillDto);
-            const resume = await this.resumeModel.findByIdAndUpdate(skill.resume, {
+
+            await this.resumeModel.findByIdAndUpdate(skill.resume, {
                 $push: {
-                    skills: { skill }
+                    skills: skill
                 }
-            })
-            await skill.save();
-            await resume.save();
+            }, { new: true })
 
             return skill;
         } catch (error) {

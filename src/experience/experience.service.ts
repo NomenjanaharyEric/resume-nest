@@ -36,13 +36,16 @@ export class ExperienceService {
     async create(createExperienceDto: CreateExperienceDto)
     {
         try {
-            const resume = await this.resumeModel.findById(createExperienceDto.resume);
             const experience = await this.experienceModel.create(createExperienceDto);
-
-            resume.experiences.push(experience);
-            await resume.save();
+            
+            await this.resumeModel.findByIdAndUpdate(createExperienceDto.resume, {
+                $push: {
+                    experiences: experience
+                }
+            })
 
             return experience;
+
         } catch (error) {
             throw error;
         }
@@ -65,7 +68,6 @@ export class ExperienceService {
         try {
             const experience = await this.experienceModel.findByIdAndDelete(id);
 
-            // Update resume experiences
             await this.resumeModel.findByIdAndUpdate(experience.resume,{
                 $pull: { experiences: experience.id }
             }, { new: true });

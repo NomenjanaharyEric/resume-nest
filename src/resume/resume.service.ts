@@ -31,9 +31,7 @@ export class ResumeService {
     async update(id: string, updateResumeDto: UpdateResumeDto)
     {
         try {
-            const resume = await this.resumeModel.findByIdAndUpdate(id,updateResumeDto);
-            await resume.save();
-
+            const resume = await this.resumeModel.findByIdAndUpdate(id,updateResumeDto, { new: true });
             return resume;
         } catch (error) {
             throw error;

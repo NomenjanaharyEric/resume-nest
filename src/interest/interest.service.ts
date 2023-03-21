@@ -47,9 +47,7 @@ export class InterestService {
 
     async update(interestId: string, updateInterestDto: UpdateInterestDto){
         try {
-            const interest = await this.interestModel.findByIdAndUpdate(interestId, updateInterestDto);
-
-            await interest.save();
+            const interest = await this.interestModel.findByIdAndUpdate(interestId, updateInterestDto, { new: true });
             return interest;
         } catch (error) {
             throw error;
