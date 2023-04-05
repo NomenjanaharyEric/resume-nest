@@ -18,6 +18,15 @@ export class ResumeService {
         }
     }
 
+    async find(id: string){
+        try {
+            const resume = await this.resumeModel.findById(id);
+            return resume;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async create(createResumeDto: CreateResumeDto)
     {
         try {

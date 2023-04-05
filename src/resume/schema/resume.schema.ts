@@ -18,6 +18,9 @@ export class Resume {
     lastname: string;
 
     @Prop()
+    email: string;
+
+    @Prop()
     dateofbirth: string;
 
     @Prop()

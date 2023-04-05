@@ -15,6 +15,12 @@ export class ResumeController {
         return this.resumeService.findAll(req.user.userId);
     }
 
+    @Get('/:id')
+    @UseGuards(JwtAuthGuard)
+    find(@Param("id") id: string){
+        return this.resumeService.find(id);
+    }
+
     @Post()
     @UseGuards(JwtAuthGuard)
     create(@Body() resumeDto: CreateResumeDto) {
